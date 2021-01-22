@@ -1,0 +1,143 @@
+.itemb{
+    width: 100%;
+    height: 100%;
+    padding: 269px 0 0 96px;
+    position: relative;
+    box-sizing: border-box;
+    .peer{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        .hellow-year{
+            .dear{
+                font-size: 38px;
+                color: #4b2626;
+            }
+            .vip{
+                font-size: 38px;
+                color: #4b2626;
+                margin-top: 50px;
+                display: flex;
+                align-items: center;
+                .year{
+                    font-size: 55px;
+                    color: #820e12;
+                    margin: 0 10px;
+                }
+            }
+        }
+        .tip{
+            display: block;
+            width: 402px;
+            height: 172px;
+            margin-top: 101px;
+        }
+    }
+    .rightprize{
+        width: 677px;
+        height: 1403px;
+        position: absolute;
+        right: -100px;
+        top: -100px;
+    }
+    .leftprize{
+        width: 214px;
+        height: 269px;
+        position: absolute;
+        left: -50px;
+        top: 660px;
+    }
+    .light{
+        width: 534px;
+        height: 578px;
+        position: absolute;
+        left: -40px;
+        top: -20px;
+        opacity: 0;
+    }
+    .start{
+        width: 325px;
+        height: 271px;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        position: absolute;
+        transform: translate(-325px,-271px);
+    }
+    .startDraw{
+        width: 253px;
+        height: 148px;
+        left: 0;
+        top: 271px;
+        position: absolute;
+    }
+}
+
+//进入动画
+.pagefixed {
+    @keyframes zy{ 
+        0% { 
+            transform: rotate(0deg); 
+        } 
+        50% {
+            transform: rotate(8deg); 
+        }
+        100% { 
+            transform: rotate(0deg); 
+        } 
+    }
+    
+    .light{
+        opacity: 1;
+        -webkit-transition: all .1s ease-in-out 300ms;
+        -moz-transition: all 1s ease-in-out 300ms;
+        -o-transition: all 1s ease-in-out 300ms;
+        transition: all 1s ease-in-out 300ms;
+    }
+    .start {
+        opacity: 1;
+        transform: translate(0,0);
+        -webkit-transition: all 1s ease-in-out 100ms;
+        -moz-transition: all 1s ease-in-out 100ms;
+        -o-transition: all 1s ease-in-out 100ms;
+        transition: all 1s ease-in-out 100ms;
+    }
+    .leftprize{
+        animation: zy 2.5s .15s linear infinite;
+        -moz-animation: zy 2.5s .15s linear infinite; /* Firefox */
+        -webkit-animation: zy 2.5s .15s linear infinite; /* Safari and Chrome */
+        -o-animation: zy 2.5s .15s linear infinite; /* Opera */
+    }
+}
+
+//离开动画
+.page-opc{
+    @keyframes live{ 
+        0% { 
+            transform: translateX(0);
+          } 
+        100% {
+            transform: translateX(-214px);
+        }
+    }
+    .light{
+        opacity: 1;
+    }
+    .start{
+        transform: translate(-325px,-271px);
+    }
+    .leftprize{
+        animation: live 2.5s .15s linear;
+        -moz-animation: live 2.5s .15s linear; /* Firefox */
+        -webkit-animation: live 2.5s .15s linear; /* Safari and Chrome */
+        -o-animation: live 2.5s .15s linear; /* Opera */
+    }
+    .rightprize{
+        opacity: 0;
+        transform: translateX(667px);
+        -webkit-transition: all 1s ease-in-out 100ms;
+        -moz-transition: all 1s ease-in-out 100ms;
+        -o-transition: all 1s ease-in-out 100ms;
+        transition: all 1s ease-in-out 100ms;
+    }
+}

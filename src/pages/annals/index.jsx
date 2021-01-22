@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text } from '@tarojs/components'
+import { View, Text,Block } from '@tarojs/components'
+import Tema from './template/tema'
+import Temb from './template/temb'
+import Loading from './template/Loading'
 import './index.scss'
 
 export default class Index extends Component {
@@ -8,22 +11,18 @@ export default class Index extends Component {
     this.state = {
         bannerList: [ //盒子背景颜色
             {
-                bg: "#f6f6f6"
+               bg: "linear-gradient(#f9a887 0%, #ffecd6 30%,#ffecd6 45%,#f9a887 70%,#f9977b 75%, #e21840 130%)",
             },
             {
-                bg: "#87d9e1"
-            },
-            {
-                bg: "#8185d7"
-            },
-            {
-                bg: "#e187cf"
+                bg: "linear-gradient(#ed5f67 -10%, #fbc5aa 30%, #ffecd6 60%, #fbc5aa 88%, #fbb69c 95%)",
             }
         ],
         offsetwidth: document.documentElement.clientWidth, //获取当前页面的宽度
         offsetheight: document.documentElement.clientHeight, //获取当前页面的高度
         fullPage: 0, //当前在第几页
-        fullPageNum: false //是否在滑动
+        fullPageNum: false, //是否在滑动
+        detail:{},
+        isLoading:true
     }
 }
   componentWillMount () { }
@@ -40,6 +39,12 @@ export default class Index extends Component {
         this.addEvent(box,'mousewheel',this.scroll.bind(this));
         this.addEvent(box,'DOMMouseScroll',this.scroll.bind(this));
         console.log(box)
+
+        setTimeout(()=>{
+            this.setState({
+                isLoading:false
+            })
+        },300)
   }
 
   componentWillUnmount () { }
@@ -70,24 +75,26 @@ export default class Index extends Component {
       鼠标事件
   */
   scroll(e) {
+      let { bannerList,fullPageNum,fullPage } = this.state
       let event = e || window.event;
 
       /*
           是否正在滑动
       */
-      if (this.state.fullPageNum) {
+      if (fullPageNum || fullPage==0) {
           return false;
       }
 
       /*
          e.wheelDelta为负数时向下滑动
       */
+     console.log(event.wheelDelta)
       if (event.wheelDelta < 0) {
-          if (this.state.fullPage >= 3) {
+          if (fullPage >= bannerList.length-1) {
               return false;
           }
           this.setState({ fullPageNum: true });
-          this.pageInfo(this.state.fullPage + 1);
+          this.pageInfo(fullPage + 1);
           /*
               css设置动画事件为1000，所以等到1000ms后滚动状态为false
           */
@@ -98,34 +105,41 @@ export default class Index extends Component {
               否则就是向上划
           */
       } else {
-          if (this.state.fullPage <= 0) {
+          if (fullPage <= 0) {
               return false;
           }
           this.setState({ fullPageNum: true });
-          this.pageInfo(this.state.fullPage - 1);
+          this.pageInfo(fullPage - 1);
           setTimeout(() => {
               this.setState({ fullPageNum: false })
           }, 1000)
       }
   }
   render () {
-    let fullPage = [];
-    this.state.bannerList.forEach((i, index) => {
-        fullPage.push(<View className="page" key={index} style={{'height':this.state.offsetheight+'px','background':i.bg}}></View>)
-    })
+    let { bannerList,fullPage,detail,isLoading } = this.state
+    let Pagelist = [
+        <Tema key={0} ref="child" index={0} detail={detail} fullpage={fullPage} MakePage={this.pageInfo.bind(this,1)} bannerlist={bannerList}></Tema>,
+        <Temb key={1} index={1} detail={detail} fullpage={fullPage} bannerlist={bannerList}></Temb>
+    ];
     let fullList = [];
-    this.state.bannerList.forEach((i, index) => {
-        fullList.push(<View key={index} className={`icon ${this.state.fullPage===index?'color':''}`} onClick={this.pageInfo.bind(this,index)}></View>)
+    bannerList.forEach((i, index) => {
+        fullList.push(<View key={index} className={`icon ${fullPage===index?'color':''}`} onClick={this.pageInfo.bind(this,index)}></View>)
     })
     return (
-        <View className="section clearfix" style={{'height':this.state.offsetheight+'px'}}>
-            <View className="container" style={{'width':`${this.state.offsetwidth*fullPage.length}px`,'transform': 'translate3d(-'+ this.state.fullPage*this.state.offsetwidth +'px,0px, 0px)'}}>
-                {fullPage}
+        <Block>
+            <View className="section clearfix">
+                <View className="container">
+                    {Pagelist}
+                </View>
+                {
+                    fullPage >0  && 
+                    <View className="fixed-list">
+                        {fullList}
+                    </View>
+                }
             </View>
-            <View className="fixed-list">
-                {fullList}
-            </View>
-        </View>
+            <Loading isloading={isLoading}></Loading>
+        </Block>
     );
   }
 }

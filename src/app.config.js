@@ -1,6 +1,14 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: sueRimn
+ * @Date: 2021-01-22 08:53:30
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2021-01-22 10:22:56
+ */
 export default {
   pages: [
-    'pages/index/index'
+    'pages/annals/index'
   ],
   window: {
     backgroundTextStyle: 'light',

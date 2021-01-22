@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: sueRimn
+ * @Date: 2021-01-22 08:53:30
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2021-01-22 10:23:18
+ */
 const config = {
   projectName: 'lppzh5',
   date: '2021-1-21',
@@ -52,13 +60,26 @@ const config = {
       mode: 'browser', // 或者是 'browser'
       basename: '/h5',
       customRoutes: {
-        '/pages/index/index': '/index'
+        '/pages/annals/index': '/index'
       }
+    },
+    output: {
+      filename: 'js/[name].[hash].js',
+      chunkFilename: 'js/[name].[chunkhash].js'
+    },
+    miniCssExtractPluginOption: {
+      filename: 'css/[name].[hash].css',
+      chunkFilename: 'css/[name].[chunkhash].css',
     },
     postcss: {
       autoprefixer: {
         enable: true,
         config: {
+           browsers: [
+              'last 3 versions',
+              'Android >= 4.1',
+              'ios >= 8'
+            ]
         }
       },
       cssModules: {
