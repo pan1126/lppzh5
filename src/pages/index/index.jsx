@@ -20,7 +20,6 @@ export default class Index extends Component {
                 bg: "#e187cf"
             }
         ],
-        offsetwidth: document.documentElement.clientWidth, //获取当前页面的宽度
         offsetheight: document.documentElement.clientHeight, //获取当前页面的高度
         fullPage: 0, //当前在第几页
         fullPageNum: false //是否在滑动
@@ -111,21 +110,21 @@ export default class Index extends Component {
   render () {
     let fullPage = [];
     this.state.bannerList.forEach((i, index) => {
-        fullPage.push(<View className="page" key={index} style={{'height':this.state.offsetheight+'px','background':i.bg}}></View>)
+        fullPage.push(<div key={index} style={{'height':this.state.offsetheight+'px','background':i.bg}}></div>)
     })
     let fullList = [];
     this.state.bannerList.forEach((i, index) => {
-        fullList.push(<View key={index} className={`icon ${this.state.fullPage===index?'color':''}`} onClick={this.pageInfo.bind(this,index)}></View>)
+        fullList.push(<div key={index} className={this.state.fullPage===index?'color':''} onClick={this.pageInfo.bind(this,index)}></div>)
     })
     return (
-        <View className="section clearfix" style={{'height':this.state.offsetheight+'px'}}>
-            <View className="container" style={{'width':`${this.state.offsetwidth*fullPage.length}px`,'transform': 'translate3d(-'+ this.state.fullPage*this.state.offsetwidth +'px,0px, 0px)'}}>
+        <div className="section" style={{'height':this.state.offsetheight+'px'}}>
+            <div className="container" style={{'transform': 'translate3d(0px,-'+ this.state.fullPage*this.state.offsetheight +'px, 0px)'}}>
                 {fullPage}
-            </View>
-            <View className="fixed-list">
+            </div>
+            <div className="fixed-list">
                 {fullList}
-            </View>
-        </View>
+            </div>
+        </div>
     );
   }
 }
