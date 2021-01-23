@@ -52,6 +52,7 @@ const config = {
   },
   h5: {
     publicPath: '/',
+    host:'192.168.124.12',
     devServer: {
       port: 10086
     },
@@ -71,6 +72,7 @@ const config = {
       filename: 'css/[name].[hash].css',
       chunkFilename: 'css/[name].[chunkhash].css',
     },
+    esnextModules: ['taro-ui'],
     postcss: {
       autoprefixer: {
         enable: true,

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text,Image,Block } from '@tarojs/components'
+import $ from  'jquery'
 import './index.scss'
 import tip from '../../../../images/tip.png'
 import leftprize from '../../../../images/left-prize.png'
@@ -7,6 +8,7 @@ import rightprize from '../../../../images/right-prize.png'
 import light from '../../../../images/light.png'
 import start from '../../../../images/start-top.png'
 import startDraw from '../../../../images/start-draw.png'
+let num = 1;
 class Temb extends Component {
     static defaultProps = {
         detail:{},
@@ -18,11 +20,29 @@ class Temb extends Component {
     constructor(props){
       super(props)
       this.state = {
-        
+        moveStart:false
       }
   }
+  componentWillReceiveProps(nextProps){
+    // 会在父组件传递给子组件的参数发生改变时触发
+    if(num <= 2 && nextProps.fullpage == 1) {//首次进入为1
+         // console.log(nextProps)
+         var animationDiv = $(".start");
+         animationDiv.bind("webkitAnimationEnd", ()=> {
+           this.setState({
+            moveStart:true
+           })
+        });
+        num++;//触发componentWillReceiveProps后将num++，而在请求会将num都设为了2，在+1为3，componentWillReceiveProps将只调用一次
+    }else{
+        this.setState({
+            moveStart:false
+        })
+    }
+  }
   render (){
-      const { detail,index,fullpage,bannerlist } = this.props
+      const { detail,index,fullpage,bannerlist } = this.props;
+      const { moveStart } = this.state;
       return (
         <View className={`itemb page ${fullpage===index?'pagefixed':'page-opc'}`} style={{'background-image':bannerlist[index].bg}}>
              <View className="peer">
@@ -32,10 +52,13 @@ class Temb extends Component {
                  </View>
                  <Image className="tip" src={tip}></Image>
              </View>
+             <Block>
+                <Text className="falling-star"></Text><Text className="falling-star"></Text><Text className="falling-star"></Text>
+             </Block>
              <Image className="light" src={light}></Image>
              <Image className="leftprize" src={leftprize}></Image>
              <Image className="rightprize" src={rightprize}></Image>
-             <Image className="start" src={start}></Image>
+             <Image className={`start ${moveStart?'movestart':''}`} src={start}></Image>
              <Image className="startDraw" src={startDraw}></Image>
              <View className="lppztip">
                 <View>打开“良品铺子+”小程序</View>

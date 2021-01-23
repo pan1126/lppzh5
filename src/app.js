@@ -16,15 +16,13 @@ class App extends Component {
 
   componentDidMount () {
     window.$wx = wx //挂在window
-    let that=this
-    getUserAgent(function(){
-      console.log(that,888)
-      getCode(that,check_useragent())
+    getUserAgent(()=>{
+      //console.log(888)
     })
   }
 
   componentDidShow () {
-    console.log(check_useragent())
+    
   }
 
   componentDidHide () {}

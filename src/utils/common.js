@@ -1,6 +1,7 @@
 import Taro from '@tarojs/taro'
 import {
-  get as getGlobalData
+  get as getGlobalData,
+  set as setGlobalData
 } from '../service/config'
 import api from '../service/api'
 
@@ -201,6 +202,7 @@ export function promiseAll(...restArgs) {
 }
 
 export function check_useragent(){
+        let aguen = '' 
         // var browser = {
         //     versions: function() {
         //         var u = navigator.userAgent, app = navigator.appVersion;
@@ -227,7 +229,7 @@ export function check_useragent(){
         //     return true;
         // }
         if (urlParse(window.location.search).app === "app") {
-          return 'app' //客户端调用
+          aguen =  'app' //客户端调用
         } else {
           //非客户端调用
           var ua = navigator.userAgent.toLowerCase();
@@ -235,22 +237,24 @@ export function check_useragent(){
               this.$wx.miniProgram.getEnv((res) => {
                 if (res.miniprogram) {
                   console.log("在小程序里")
-                  return 'weapp'
+                  aguen = 'weapp'
                 } else {
                   console.log("不在小程序里")
-                  return 'wx'
+                  aguen = 'wx'
                 }
             })
           } else {
-              return 'browser';
+            aguen = 'browser';
           }
         }
+        setGlobalData('aguen',aguen)
+        return aguen
     }
 
 //检测浏览器的方法
 export function getUserAgent(callback) {
   let ua = navigator.userAgent.toLowerCase();
-  console.log(ua)
+  //console.log(ua)
   // 判断是否是支付宝
   let Alipay = ua.indexOf('alipayclient') !== -1;
   window.isAlipay = Alipay;
@@ -349,7 +353,7 @@ export function getCode(obj,stus) {
       })
     }
 
-    console.log(openUserId,'openUserId')
+    //onsole.log(openUserId,'openUserId')
     if(!openUserId){
       let redirectUri=encodeURIComponent(window.location.href) //授权回调地址
       let codeUrl = {
@@ -360,7 +364,7 @@ export function getCode(obj,stus) {
         getAliCodeUrl: `https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=${getGlobalData('aliAppId')}&scope=auth_base&redirect_uri=${redirectUri}`
       }
       
-      if (window.isWeixin && stus=='weapp') {     // 微信
+      if (window.isWeixin) {     // 微信
         let code = getUrlParam('code') || ''
         let id = getUrlParam('id') || ''
         if(code){
@@ -411,11 +415,30 @@ export function getCode(obj,stus) {
         if(stus=='app'){
           console.log('app内打开')
         }else{
-          // alert('此时不在小程序或app内')
+          console.log('不在app内或小程序内打开')
         }
       }
     }else{
       resolve(1)
     }
   })
+}
+
+
+export function getWindowHeight(showTabBar = true) {
+  const TAB_BAR_HEIGHT = 50
+  const NAVIGATOR_HEIGHT = 44
+  const info = Taro.getSystemInfoSync()
+  const { windowHeight, statusBarHeight } = info
+  const tabBarHeight = showTabBar ? TAB_BAR_HEIGHT : 0
+
+  if (process.env.TARO_ENV === 'rn') {
+    return windowHeight - statusBarHeight - NAVIGATOR_HEIGHT - tabBarHeight
+  }
+
+  if (process.env.TARO_ENV === 'h5') {
+    return `${windowHeight - tabBarHeight}px`
+  }
+
+  return `${windowHeight}px`
 }

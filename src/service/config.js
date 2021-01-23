@@ -19,7 +19,6 @@ if (process.env.NODE_ENV === 'development') {
     domain_pay: 'https://czt.crhlink.com/pay',
     wxAppId: 'wxdc5366f23170db83', //畅行九州服务号appid
     aliAppId: '2017100909206267', //车站通开放平台中畅行九州应用appid
-    alipaySourceId: '143', //车站通开放平台中畅行九州应用测试
   }
 }else{
   {
@@ -34,7 +33,6 @@ if (process.env.NODE_ENV === 'development') {
       domain_usercenter: 'https://parking.weitaikeji.com/user-center', //测试
       wxAppId: 'wxdc5366f23170db83', //畅行九州服务号appid
       aliAppId: '2019103068790074', //车站通开放平台中畅行九州应用appid
-      alipaySourceId: '450', //车站通开放平台中畅行九州应用测试
     }
   }
 }

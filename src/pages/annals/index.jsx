@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
 import { View, Text,Block } from '@tarojs/components'
+import { check_useragent,getUserAgent,getCode } from '../../utils/common'
 import Tema from './template/tema'
 import Temb from './template/temb'
+import TemC from './template/temc'
 import Loading from './template/Loading'
 import './index.scss'
-
+import {
+    get as getGlobalData,
+    set as setGlobalData
+} from '../../service/config'
 export default class Index extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +17,9 @@ export default class Index extends Component {
         bannerList: [ //盒子背景颜色
             {
                bg: "linear-gradient(#f9a887 0%, #ffecd6 30%,#ffecd6 45%,#f9a887 70%,#f9977b 75%, #e21840 130%)",
+            },
+            {
+                bg: "linear-gradient(#ed5f67 -10%, #fbc5aa 30%, #ffecd6 60%, #fbc5aa 88%, #fbb69c 95%)",
             },
             {
                 bg: "linear-gradient(#ed5f67 -10%, #fbc5aa 30%, #ffecd6 60%, #fbc5aa 88%, #fbb69c 95%)",
@@ -25,7 +33,9 @@ export default class Index extends Component {
         isLoading:true
     }
 }
-  componentWillMount () { }
+  componentWillMount () { 
+    getCode(this,check_useragent())
+  }
 
   componentDidMount () {
      /*
@@ -38,8 +48,19 @@ export default class Index extends Component {
          */
         this.addEvent(box,'mousewheel',this.scroll.bind(this));
         this.addEvent(box,'DOMMouseScroll',this.scroll.bind(this));
-        console.log(box)
+        //console.log(box)
+        let aguen = getGlobalData('aguen')
+        switch (aguen){
+            case 'weapp' :
 
+            break;
+            case 'app' :
+
+            break;
+            default :
+                console.log('不在小程序内或者不在app内的 处理')
+            break;
+        }
         setTimeout(()=>{
             this.setState({
                 isLoading:false
@@ -88,13 +109,12 @@ export default class Index extends Component {
       /*
          e.wheelDelta为负数时向下滑动
       */
-     console.log(event.wheelDelta)
+     //console.log(event.wheelDelta)
       if (event.wheelDelta < 0) {
           if (fullPage >= bannerList.length-1) {
               return false;
           }
-          this.setState({ fullPageNum: true });
-          this.pageInfo(fullPage + 1);
+          this.setState({ fullPageNum: true,fullPage: fullPage + 1 });
           /*
               css设置动画事件为1000，所以等到1000ms后滚动状态为false
           */
@@ -108,8 +128,7 @@ export default class Index extends Component {
           if (fullPage <= 0) {
               return false;
           }
-          this.setState({ fullPageNum: true });
-          this.pageInfo(fullPage - 1);
+          this.setState({ fullPageNum: true,fullPage: fullPage - 1});
           setTimeout(() => {
               this.setState({ fullPageNum: false })
           }, 1000)
@@ -119,7 +138,8 @@ export default class Index extends Component {
     let { bannerList,fullPage,detail,isLoading } = this.state
     let Pagelist = [
         <Tema key={0} ref="child" index={0} detail={detail} fullpage={fullPage} MakePage={this.pageInfo.bind(this,1)} bannerlist={bannerList}></Tema>,
-        <Temb key={1} index={1} detail={detail} fullpage={fullPage} bannerlist={bannerList}></Temb>
+        <Temb key={1} index={1} detail={detail} fullpage={fullPage} bannerlist={bannerList}></Temb>,
+        <TemC key={2} index={2} detail={detail} fullpage={fullPage} bannerlist={bannerList}></TemC>
     ];
     let fullList = [];
     bannerList.forEach((i, index) => {
