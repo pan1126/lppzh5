@@ -3,8 +3,13 @@ import { View, Text,Block } from '@tarojs/components'
 import { check_useragent,getUserAgent,getCode } from '../../utils/common'
 import Tema from './template/tema'
 import Temb from './template/temb'
-import TemC from './template/temc'
-import Loading from './template/Loading'
+import Temc from './template/temc'
+import Temd from './template/temd'
+import Teme from './template/teme'
+import Temf from './template/temf'
+import Temg from './template/temg'
+import Temh from './template/temh'
+import Loading from './component/Loading'
 import './index.scss'
 import {
     get as getGlobalData,
@@ -16,13 +21,28 @@ export default class Index extends Component {
     this.state = {
         bannerList: [ //盒子背景颜色
             {
-               bg: "linear-gradient(#f9a887 0%, #ffecd6 30%,#ffecd6 45%,#f9a887 70%,#f9977b 75%, #e21840 130%)",
+               bg: "linear-gradient(#f9a887 0%, #ffecd6 30%,#ffecd6 45%,#f9a887 70%,#f9977b 75%, #e21840 130%)"
             },
             {
-                bg: "linear-gradient(#ed5f67 -10%, #fbc5aa 30%, #ffecd6 60%, #fbc5aa 88%, #fbb69c 95%)",
+                bg: "linear-gradient(#ed5f67 -10%, #fbc5aa 30%, #ffecd6 60%, #fbc5aa 88%, #fbb69c 95%)"
             },
             {
-                bg: "linear-gradient(#ed5f67 -10%, #fbc5aa 30%, #ffecd6 60%, #fbc5aa 88%, #fbb69c 95%)",
+                bg: "linear-gradient(rgb(243, 96, 108) 25%, rgb(234, 107, 89) 50%,rgb(255, 238, 180) 100%)"
+            },
+            {
+                bg: "linear-gradient(rgb(235, 78, 88) -5%, rgb(251, 189, 153) 50%, rgb(255, 238, 221) 100%)"
+            },
+            {
+                bg: "linear-gradient(#fff0cb 25%,#ffd1a0 100%)"
+            },
+            {
+                bg: "linear-gradient(#ffb683 25%,#fed7ad 100%)"
+            },
+            {
+                bg: "linear-gradient(#ffe2af 25%, #ffbcbd 50%,#ffa4b4 100%)"
+            },
+            {
+                bg: "linear-gradient(#2f1307 25%,#1a0903 100%)"
             }
         ],
         offsetwidth: document.documentElement.clientWidth, //获取当前页面的宽度
@@ -38,6 +58,7 @@ export default class Index extends Component {
   }
 
   componentDidMount () {
+      //showMenuByLongpress={true} img长按保存
      /*
             在dom加载完毕以后为大盒子添加鼠标滚轮监听事件
          */
@@ -139,7 +160,12 @@ export default class Index extends Component {
     let Pagelist = [
         <Tema key={0} ref="child" index={0} detail={detail} fullpage={fullPage} MakePage={this.pageInfo.bind(this,1)} bannerlist={bannerList}></Tema>,
         <Temb key={1} index={1} detail={detail} fullpage={fullPage} bannerlist={bannerList}></Temb>,
-        <TemC key={2} index={2} detail={detail} fullpage={fullPage} bannerlist={bannerList}></TemC>
+        <Temc key={2} index={2} detail={detail} fullpage={fullPage} bannerlist={bannerList}></Temc>,
+        <Temd key={3} index={3} detail={detail} fullpage={fullPage} bannerlist={bannerList}></Temd>,
+        <Teme key={4} index={4} detail={detail} fullpage={fullPage} bannerlist={bannerList}></Teme>,
+        <Temf key={5} index={5} detail={detail} fullpage={fullPage} bannerlist={bannerList}></Temf>,
+        <Temg key={6} index={6} detail={detail} fullpage={fullPage} bannerlist={bannerList}></Temg>,
+        <Temh key={7} index={7} detail={detail} fullpage={fullPage} bannerlist={bannerList}></Temh>
     ];
     let fullList = [];
     bannerList.forEach((i, index) => {

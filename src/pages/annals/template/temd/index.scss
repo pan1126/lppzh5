@@ -1,0 +1,130 @@
+.itemd{
+    width: 100%;
+    height: 100%;
+    padding: 150px 0 0 96px;
+    box-sizing: border-box;
+    mix-blend-mode: overlay;
+    .temd-mast{
+        width: 100%;
+        .year{
+            font-size: 38px;
+            color:rgb(255,253,215);
+        }
+        .consume{
+            width: 100%;
+            font-size: 38px;
+            color:rgb(255,253,215);
+            .tiems{
+                font-size: 55px;
+                color: rgb(255,212,97);
+                margin: 0 30px;
+            }
+        }
+    }
+    .honest{
+        display: block;
+        width: 74.8%;
+        height: 127px;
+        margin-top: 93px;
+    }
+    .caravan{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 262px;
+    }
+    .nuts{
+        display: block;
+        width: 105px;
+        height: 99px;
+        position: absolute;
+        bottom: 460px;
+        left: 45%;
+        transform: translateX(-50%);
+        z-index: 3;
+    }
+    .light{
+        width: 85.2%;
+        height: auto;
+        position: absolute;
+        top: 13.5%;
+        left: -70px;
+        opacity: 0;
+    }
+    .pyramid{
+        width: 100vw;
+        height: 33.6%;
+        position: absolute;
+        bottom: 180px;
+        left: 0;
+    }
+}
+
+.pagefixed{
+    @keyframes pageslight{ 
+        0% { 
+            opacity: 0;
+          } 
+        100% {
+            opacity: 1;
+        }
+    }
+    @keyframes moveray{
+        0%,100%{ 
+            opacity: 1;
+          }
+          10%,90%{ 
+            opacity: .8;
+          }
+          15%, 75%{ 
+            opacity: .6;
+          }
+          30%, 60%{ 
+            opacity: .5;
+          }
+    }
+    .temd-mast{
+        opacity: 1;
+        -webkit-transition: all 1s ease-in-out 400ms;
+        -moz-transition: all 1s ease-in-out 400ms;
+        -o-transition: all 1s ease-in-out 400ms;
+        transition: all 1s ease-in-out 400ms;
+    }
+    .light{
+        animation: 1s ease-out 600ms normal pageslight;
+        -moz-animation: 1s ease-out 600ms normal pageslight; /* Firefox */
+        -webkit-animation: 1s ease-out 600ms normal pageslight; /* Safari and Chrome */
+        -o-animation: 1s ease-out 600ms normal pageslight; /* Opera */
+    }
+    .nuts{
+        -webkit-transition: all 300ms 400ms ease-out;
+        -moz-transition: all 300ms 400ms ease-out;
+        -o-transition: all 300ms 400ms ease-out;
+        transition: all 300ms 400ms ease-out;
+    }
+    .moveray{
+        animation: 3s ease-out 1ms infinite moveray;
+        -moz-animation: 3s ease-out 1ms infinite moveray; /* Firefox */
+        -webkit-animation: 3s ease-out 1ms infinite moveray; /* Safari and Chrome */
+        -o-animation: 3s ease-out 1ms infinite moveray; /* Opera */
+    }
+}
+
+.page-opc{
+    .temd-mast{
+        opacity: 0;
+        -webkit-transition: all 300ms ease-out;
+        -moz-transition: all 300ms ease-out;
+        -o-transition: all 300ms ease-out;
+        transition: all 300ms ease-out;
+    }
+    .nuts{
+        transform: scale(10);
+        opacity: 0;
+        -webkit-transition: all 300ms ease-in-out;
+        -moz-transition: all 300ms ease-in-out;
+        -o-transition: all 300ms ease-in-out;
+        transition: all 300ms ease-in-out;
+    }
+}

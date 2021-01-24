@@ -54,7 +54,7 @@ const config = {
     publicPath: '/',
     host:'192.168.124.12',
     devServer: {
-      port: 10086
+      port: 8081
     },
     staticDirectory: 'static',
     router: {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text,Image } from '@tarojs/components'
 import './index.scss'
-import { AtActionSheet, AtActionSheetItem } from "taro-ui"
+import FloatLayout from '../../component/model'
 import music from '../../../../images/music.png'
 import share from '../../../../images/share.png'
 import logo from '../../../../images/logo.png'
@@ -31,15 +31,16 @@ class Tema extends Component {
         isOpened:true
     })
  }
- onCancel(){
+ onClose(){
      this.setState({
-        isOpened:false
+         isOpened:false
      })
  }
- sheetItem(e){
+ shareFrien(e){
     this.setState({
         isOpened:false
     })
+    console.log(e)
  }
   render (){
       const { detail,index,fullpage,bannerlist, } = this.props
@@ -51,21 +52,21 @@ class Tema extends Component {
                 <Image className="music" src={music}></Image>
                 <Image className="share" onClick={this.shareBtn.bind(this)} src={share}></Image>
             </View>
-            <Image className="times" src={times}></Image>
+            <View className="times">
+                <Image className="img" mode="aspectFit" src={times}></Image>
+            </View>
             <Image className="star" src={star}></Image>
             <View className="btn-start">
                 <Text className="recall">您的2020良品铺子回忆</Text>
                 <View className="open-recall" onClick={this.onClickAction.bind(this)}>开启回忆录</View>
                 <View className="time">*数据截止于2020年12月31日</View>
             </View>
-            <AtActionSheet isOpened={isOpened} onCancel={this.onCancel.bind(this)}>
-                <AtActionSheetItem onClick={this.sheetItem.bind(this,0)}>
-                    按钮一
-                </AtActionSheetItem>
-                <AtActionSheetItem onClick={this.sheetItem.bind(this,1)}>
-                    按钮二
-                </AtActionSheetItem>
-            </AtActionSheet>
+            <FloatLayout isOpened={isOpened} onClose={this.onClose.bind(this)}>
+                <View className="share-content">
+                    <View className="friend" onClick={this.shareFrien.bind(this,'friend')}>分享好友</View>
+                    <View className="circle" onClick={this.shareFrien.bind(this,'circle')}>分享朋友圈</View>
+                </View>
+            </FloatLayout>
         </View>
       )
   }

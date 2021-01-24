@@ -1,4 +1,3 @@
-@import "~taro-ui/dist/style/components/action-sheet.scss";
 .itema{
     padding-top: 88px;
     width: 100%;
@@ -34,7 +33,7 @@
         top: -50px;
         left: -50px;
         width: 548px;
-        height: 887px;
+        height: 65%;
         margin: 0 auto;
     }
     .star{
@@ -78,6 +77,29 @@
             margin-top: 100px;
             padding-left: 44px;
             box-sizing: border-box;
+        }
+    }
+    .share-content{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        .friend{
+            width: 50%;
+            height: 88px;
+            text-align: center;
+            line-height: 88px;
+            font-size: 30px;
+            color: black;
+        }
+        .circle{
+            width: 50%;
+            height: 88px;
+            text-align: center;
+            line-height: 88px;
+            font-size: 30px;
+            color: black;
         }
     }
 }

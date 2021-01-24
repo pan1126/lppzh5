@@ -1,0 +1,69 @@
+.iteme{
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    .moon{
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 350px 0 0 96px;
+        box-sizing: border-box;
+        z-index: 9;
+        .month{
+            font-size: 55px;
+            color:rgb(254,60,71);
+            font-weight:bold;
+        }
+        .consume{
+            width: 100%;
+            font-size: 38px;
+            color:rgb(75,38,38);
+            margin-top: 20px;
+            .tiems{
+                font-size: 55px;
+                color:rgb(254,60,71);
+                margin: 0 30px;
+                font-weight:bold;
+            }
+        }
+    }
+    .annals-mood{
+        display: block;
+        width: 522px;
+        height: 48px;
+        margin-top: 93px;
+    }
+    .annals-moon{
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: auto;
+        z-index: 0;
+        .img{
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+.pagefixed{
+    .moon{
+        opacity: 1;
+        -webkit-transition: all 1s ease-in-out 400ms;
+        -moz-transition: all 1s ease-in-out 400ms;
+        -o-transition: all 1s ease-in-out 400ms;
+        transition: all 1s ease-in-out 400ms;
+    }
+}
+
+.page-opc{
+    .moon{
+        opacity: 0;
+        -webkit-transition: all 300ms ease-out;
+        -moz-transition: all 300ms ease-out;
+        -o-transition: all 300ms ease-out;
+        transition: all 300ms ease-out;
+    }
+}

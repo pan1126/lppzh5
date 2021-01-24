@@ -2,7 +2,6 @@
     width: 100%;
     height: 100%;
     padding: 269px 0 0 96px;
-    position: relative;
     box-sizing: border-box;
     .peer{
         display: flex;
@@ -16,7 +15,7 @@
             .vip{
                 font-size: 38px;
                 color: #4b2626;
-                margin-top: 50px;
+                margin-top: 30px;
                 display: flex;
                 align-items: center;
                 .year{
@@ -28,17 +27,17 @@
         }
         .tip{
             display: block;
-            width: 402px;
-            height: 172px;
+            width: 53%;
+            height: auto;
             margin-top: 101px;
         }
     }
     .rightprize{
         width: 677px;
-        height: 1403px;
+        height: 100vh;
         position: absolute;
         right: -100px;
-        top: -100px;
+        top: 0;
     }
     .leftprize{
         width: 214px;
