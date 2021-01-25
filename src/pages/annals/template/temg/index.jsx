@@ -30,10 +30,10 @@ class Temg extends Component {
             <View className="house">金银湖永旺店</View>
             <View className="consume">是您最偏爱的</View>
             <Image className="annals-appela" src={annals_appela}></Image>
-            <Image className="annals-hot" src={annals_hot}></Image>
+            <Image className="annals-hot" mode="aspectFit" src={annals_hot}></Image>
           </View>
-          <Image className="annals-ball" src={annals_ball}></Image>
-          <Image className="annals-bill" src={annals_bill}></Image>
+          <Image className="annals-ball" mode="aspectFit" src={annals_ball}></Image>
+          <Image className="annals-bill" mode="aspectFit" src={annals_bill}></Image>
           <View className="lppztip">
               <View>打开“良品铺子+”小程序</View>
               <View>查看[年度回忆]</View>

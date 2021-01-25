@@ -3,7 +3,6 @@
     height: 100%;
     padding: 150px 0 0 96px;
     box-sizing: border-box;
-    mix-blend-mode: overlay;
     .temd-mast{
         width: 100%;
         .year{
@@ -32,17 +31,20 @@
         left: 0;
         bottom: 0;
         width: 100%;
-        height: 262px;
+        height: 282px;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-position: bottom bottom;
+        filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale')";
     }
     .nuts{
         display: block;
         width: 105px;
-        height: 99px;
-        position: absolute;
-        bottom: 460px;
-        left: 45%;
+        top: 93px;
+        left: 40%;
         transform: translateX(-50%);
         z-index: 3;
+        height: auto;
     }
     .light{
         width: 85.2%;
@@ -54,9 +56,9 @@
     }
     .pyramid{
         width: 100vw;
-        height: 33.6%;
         position: absolute;
-        bottom: 180px;
+        height: initial;
+        bottom: 140px;
         left: 0;
     }
 }
@@ -84,6 +86,24 @@
             opacity: .5;
           }
     }
+    @keyframes pages-pyramid{ 
+        0%{ 
+            opacity: 0;
+            bottom: -100%;
+            left: 100%;
+        }
+         100%{
+            opacity: 1;
+            bottom: 140px;
+            left: 0;
+        }
+    }
+    .pyramid{
+        -webkit-animation: pages-pyramid 1s ease-out both;
+        -moz-animation: pages-pyramid 1s ease-out both;
+        -o-animation: pages-pyramid 1s ease-out both;
+        animation: pages-pyramid 1s ease-out both;
+    }
     .temd-mast{
         opacity: 1;
         -webkit-transition: all 1s ease-in-out 400ms;
@@ -97,12 +117,6 @@
         -webkit-animation: 1s ease-out 600ms normal pageslight; /* Safari and Chrome */
         -o-animation: 1s ease-out 600ms normal pageslight; /* Opera */
     }
-    .nuts{
-        -webkit-transition: all 300ms 400ms ease-out;
-        -moz-transition: all 300ms 400ms ease-out;
-        -o-transition: all 300ms 400ms ease-out;
-        transition: all 300ms 400ms ease-out;
-    }
     .moveray{
         animation: 3s ease-out 1ms infinite moveray;
         -moz-animation: 3s ease-out 1ms infinite moveray; /* Firefox */
@@ -112,6 +126,18 @@
 }
 
 .page-opc{
+    @keyframes opc-pyramid{ 
+        0%{ 
+            opacity: 1;
+            bottom: 140px;
+            left: 0;
+        }
+         100%{
+            opacity: 0;
+            bottom: -100%;
+            left: 100%;
+        }
+    }
     .temd-mast{
         opacity: 0;
         -webkit-transition: all 300ms ease-out;
@@ -119,12 +145,10 @@
         -o-transition: all 300ms ease-out;
         transition: all 300ms ease-out;
     }
-    .nuts{
-        transform: scale(10);
-        opacity: 0;
-        -webkit-transition: all 300ms ease-in-out;
-        -moz-transition: all 300ms ease-in-out;
-        -o-transition: all 300ms ease-in-out;
-        transition: all 300ms ease-in-out;
+    .pyramid{
+        -webkit-animation: opc-pyramid 2s ease-out both;
+        -moz-animation: opc-pyramid 2s ease-out both;
+        -o-animation: opc-pyramid 2s ease-out both;
+        animation: opc-pyramid 2s ease-out both;
     }
 }

@@ -27,10 +27,10 @@ class Temf extends Component {
             <View className="house">金银湖永旺店</View>
             <View className="consume">是您关顾的最多的门店</View>
             <View className="consume">在这里您一共购买了<Text className="tiems">32</Text>笔订单</View>
-            <Image className="annals-clerk" src={annals_clerk}></Image>
+            <Image className="annals-clerk" mode="aspectFit" src={annals_clerk}></Image>
           </View>
           <View className="annals-buildings">
-            <Image className="img" mode="aspectFit" src={annals_buildings}></Image>
+            <Image className="img" mode="widthFix" src={annals_buildings}></Image>
           </View>
           <View className="lppztip">
               <View>打开“良品铺子+”小程序</View>

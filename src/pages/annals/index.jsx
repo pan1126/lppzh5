@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import Taro from '@tarojs/taro'
 import { View, Text,Block } from '@tarojs/components'
-import { check_useragent,getUserAgent,getCode } from '../../utils/common'
+import { check_useragent,getUserAgent,getCode,getAppParams,versionDiff,Modal } from '../../utils/common'
 import Tema from './template/tema'
 import Temb from './template/temb'
 import Temc from './template/temc'
@@ -15,6 +16,7 @@ import {
     get as getGlobalData,
     set as setGlobalData
 } from '../../service/config'
+import requestApi from '../../service/network/requestApi'
 export default class Index extends Component {
   constructor(props) {
     super(props);
@@ -50,43 +52,110 @@ export default class Index extends Component {
         fullPage: 0, //当前在第几页
         fullPageNum: false, //是否在滑动
         detail:{},
-        isLoading:true
+        isLoading:true,
+        visible:false,
+        errTips:'',
+        comfirmStates:'确认'
     }
 }
   componentWillMount () { 
-    getCode(this,check_useragent())
+    // getCode(this,check_useragent())
   }
 
   componentDidMount () {
-      //showMenuByLongpress={true} img长按保存
-     /*
+        //showMenuByLongpress={true} img长按保存
+        /*
             在dom加载完毕以后为大盒子添加鼠标滚轮监听事件
          */
-        let box = document.querySelector('.section');
-        /*
-            这里因为在封装的函数里，this会指向div
-            所以需要改变this指向，bing一下
-         */
-        this.addEvent(box,'mousewheel',this.scroll.bind(this));
-        this.addEvent(box,'DOMMouseScroll',this.scroll.bind(this));
+        // let box = document.querySelector('.section');
+        // /*
+        //     这里因为在封装的函数里，this会指向div
+        //     所以需要改变this指向，bing一下
+        //  */
+        // this.addEvent(box,'mousewheel',this.scroll.bind(this));
+        // this.addEvent(box,'DOMMouseScroll',this.scroll.bind(this));
         //console.log(box)
+
+
         let aguen = getGlobalData('aguen')
         switch (aguen){
             case 'weapp' :
-
-            break;
-            case 'app' :
-
+            case 'app':
+                //APP参数
+            getAppParams().then(res => {
+                this.setState({
+                    userInfo: res
+                },() => {
+                    this.getUserInfo(res); //用户信息状态
+                });
+            })
+            .catch(res => {
+                this.setState({
+                    isLoading:false
+                })
+            });        
             break;
             default :
-                console.log('不在小程序内或者不在app内的 处理')
+                this.setState({
+                    isLoading:false
+                },()=>{
+                    console.log('不在小程序内或者不在app内的 处理')
+                })
             break;
         }
-        setTimeout(()=>{
+  }
+
+  //获取信息
+  getUserInfo(uData, callback) {
+    //获取用户信息
+    if (uData) uData.body = "{}";
+    getAuthInfo(uData)
+      .then(res => {
+        if (res.state === 1 && res.userId) {
+          let resInfo = {
+            isLogin: true,
+            userId: res.userId,
+            token: res.token,
+            encryptUid: res.encryptUid
+          };
+          this.setState({
+            userInfo:resInfo
+          },()=>this.getWeiPage()); //获取微页面数据)
+        } else {
             this.setState({
                 isLoading:false
             })
-        },300)
+        }
+      })
+      .catch(res => {
+        this.setState({
+            isLoading:false
+          })
+      });
+  }
+
+   //获取微页面数据
+   getWeiPage() {
+    const { userInfo } = this.state;
+    userInfo.body = "{}";
+    requestApi.recordDetail(userInfo).then((data)=>{
+        this.setState({
+            isLoading:false
+        })
+        if (data.state === 1 && data.errorCode === "0000") {
+          this.setState({
+            detail: data || {}
+          });
+        } else {
+            Taro.showToast({
+                title:data.msg
+            })
+        }
+    },(erro)=>{
+        this.setState({
+            isLoading:false
+        })
+    })
   }
 
   componentWillUnmount () { }
@@ -155,8 +224,13 @@ export default class Index extends Component {
           }, 1000)
       }
   }
+  modalConfirm(){
+      this.setState({
+        visible:false
+      })
+  }
   render () {
-    let { bannerList,fullPage,detail,isLoading } = this.state
+    let { bannerList,fullPage,detail,isLoading,visible,comfirmStates,errTips } = this.state
     let Pagelist = [
         <Tema key={0} ref="child" index={0} detail={detail} fullpage={fullPage} MakePage={this.pageInfo.bind(this,1)} bannerlist={bannerList}></Tema>,
         <Temb key={1} index={1} detail={detail} fullpage={fullPage} bannerlist={bannerList}></Temb>,
@@ -185,6 +259,15 @@ export default class Index extends Component {
                 }
             </View>
             <Loading isloading={isLoading}></Loading>
+            <Modal
+                title="提示"
+                visible={visible}
+                comfirmState={comfirmStates}
+                onOk={this.modalConfirm.bind(this)}
+                cancleText="false"
+                >
+                <p className="text-center">{errTips}</p>
+            </Modal>
         </Block>
     );
   }

@@ -28,7 +28,7 @@ class Teme extends Component {
               <View className="consume">也是个特别的日子</View>
               <View className="consume">是您这一年购买零食最多的一天</View>
               <View className="consume">花费了<Text className="tiems">320</Text>元</View>
-              <Image className="annals-mood" src={annals_mood}></Image>
+              <Image className="annals-mood" mode="aspectFit" src={annals_mood}></Image>
             </View>
             <View className="annals-moon">
               <Image className="img" mode="aspectFit" showMenuByLongpress={true} src={annals_moon}></Image>

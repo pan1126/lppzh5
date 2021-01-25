@@ -50,7 +50,7 @@ class Tema extends Component {
             <Image className="logo" src={logo}></Image>
             <View className="share-icon">
                 <Image className="music" src={music}></Image>
-                <Image className="share" onClick={this.shareBtn.bind(this)} src={share}></Image>
+                {/* <Image className="share" onClick={this.shareBtn.bind(this)} src={share}></Image> */}
             </View>
             <View className="times">
                 <Image className="img" mode="aspectFit" src={times}></Image>

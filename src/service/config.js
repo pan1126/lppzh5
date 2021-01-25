@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2021-01-22 09:24:22
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-01-22 09:24:58
+ * @LastEditTime: 2021-01-25 18:36:41
  */
 let globalData = null
 if (process.env.NODE_ENV === 'development') {
@@ -13,10 +13,7 @@ if (process.env.NODE_ENV === 'development') {
     http请求配置  
     */
     //dev
-    poolcode:'galaxy_wx',
-    domain_park: 'https://cx9z.crhlink.com/park-service/',
-    domain_usercenter: 'https://cx9z.crhlink.com/user-center',
-    domain_pay: 'https://czt.crhlink.com/pay',
+    domain_year: 'http://10.101.3.12:8093',
     wxAppId: 'wxdc5366f23170db83', //畅行九州服务号appid
     aliAppId: '2017100909206267', //车站通开放平台中畅行九州应用appid
   }
@@ -28,9 +25,7 @@ if (process.env.NODE_ENV === 'development') {
       http请求配置  
       */
       //pro
-      poolcode:'galaxy_wx',
-      domain_park: 'https://parking.weitaikeji.com/park-service',    
-      domain_usercenter: 'https://parking.weitaikeji.com/user-center', //测试
+      domain_year: 'https://mappssl.lppz.com',    
       wxAppId: 'wxdc5366f23170db83', //畅行九州服务号appid
       aliAppId: '2019103068790074', //车站通开放平台中畅行九州应用appid
     }

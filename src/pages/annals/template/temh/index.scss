@@ -1,0 +1,134 @@
+.itemh{
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    .cooperation_out{
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-position: top top;
+        filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale')";
+    }
+    .love-light{
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        width: 388px;
+        height: 101px;
+        opacity: 0;
+    }
+    .new-year{
+        width: 422px;
+        height: 0px;
+        overflow: hidden;
+        position: absolute;
+        left: 50%;
+        top: 15%;
+        transform: translateX(-50%);
+        .new-img{
+            width: 100%;
+            height: 607px;
+        }
+    }
+    .receiving-gifts{
+        width: 100%;
+        padding: 0 74px 20px 74px;
+        box-sizing: border-box;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        opacity: 0;
+        .btn-rest{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            .once-again, .look{
+                width: 275px;
+                height: 80px;
+            }
+        }
+        .gift-reset{
+            width: 100%;
+            height: 178px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            margin-top: 40px;
+            .box{
+                width: 20%;
+                height: initial;
+            }
+            .goto{
+                width: 140px;
+                height: 56px;
+            }
+        }
+    }
+}
+
+.pagefixed{
+    @keyframes pages-light{ 
+        0%{ 
+            opacity: 0;
+          }
+         50%{
+            opacity: 1;
+         }
+          100% {  
+            opacity: 0;
+          }
+    }
+    @keyframes pages-year{ 
+        0%{ 
+            height: 0px;
+        }
+         100%{
+            height: 607px;
+        }
+    }
+    .new-year{
+        -webkit-animation: pages-year 1s 2s ease-out both;
+        -moz-animation: pages-year 1s 2s ease-out both;
+        -o-animation: pages-year 1s 2s ease-out both;
+        animation: pages-year 1s 2s ease-out both;
+    }
+    .love-light{
+        -webkit-animation: pages-light 1.8s 700ms ease-out both;
+        -moz-animation: pages-light 1.8s 700ms ease-out both;
+        -o-animation: pages-light 1.8s 700ms ease-out both;
+        animation: pages-light 1.8s 700ms ease-out both;
+    }
+    .receiving-gifts{
+        opacity: 1;
+        -webkit-transition: all 1.2s ease-in-out 3s;
+        -moz-transition: all 1.2s ease-in-out 3s;
+        -o-transition: all 1.2s ease-in-out 3s;
+        transition: all 1.2s ease-in-out 3s;
+    }
+}
+
+.page-opc{
+    .flavor{
+        opacity: 0;
+        -webkit-transition: all 300ms ease-out;
+        -moz-transition: all 300ms ease-out;
+        -o-transition: all 300ms ease-out;
+        transition: all 300ms ease-out;
+    }
+    .annals-hot{
+        height: 0;
+        -webkit-transition: all 0.6s ease-in-out 10ms;
+        -moz-transition: all 0.6s ease-in-out 10ms;
+        -o-transition: all 0.6s ease-in-out 10ms;
+        transition: all 0.6s ease-in-out 10ms;
+    }
+}

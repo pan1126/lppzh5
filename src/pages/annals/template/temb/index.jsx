@@ -50,15 +50,15 @@ class Temb extends Component {
                     <View className="dear">Hi~亲爱的良粉</View>
                     <View className="vip">您已经成为良品会员<Text className="year">3</Text>年了</View>
                  </View>
-                 <Image className="tip" src={tip}></Image>
+                 <Image className="tip" mode="aspectFit" src={tip}></Image>
              </View>
              <Block>
                 <Text className="falling-star"></Text><Text className="falling-star"></Text><Text className="falling-star"></Text>
              </Block>
-             <Image className="light" src={light}></Image>
-             <Image className="leftprize" src={leftprize}></Image>
+             <Image className="light" mode="aspectFit" src={light}></Image>
+             <Image className="leftprize" mode="aspectFit" src={leftprize}></Image>
              <View className="rightprize">
-              <Image className="img" src={rightprize}></Image>
+              <Image className="img" mode="aspectFit" src={rightprize}></Image>
              </View>
              <Image className={`start ${moveStart?'movestart':''}`} src={start}></Image>
              <Image className="startDraw" src={startDraw}></Image>

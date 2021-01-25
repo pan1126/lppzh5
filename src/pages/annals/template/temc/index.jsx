@@ -27,7 +27,7 @@ class Temc extends Component {
               <View className="year">2020年</View>
               <View className="consume">您在良品铺子消费了<Text className="tiems">3</Text>次</View>
               <View className="consume">尊贵的会员身份为您省了<Text className="tiems">50</Text>元</View>
-              <Image className="money" src={money}></Image>
+              <Image className="money" mode="aspectFit" src={money}></Image>
             </View>
             <Image className="mast-img" mode="aspectFit" src={mast}></Image>
             <View className="quarterCircleLeft"></View>

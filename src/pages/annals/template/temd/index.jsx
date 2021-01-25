@@ -50,10 +50,11 @@ class Temd extends Component {
             <View className="consume">一共<Text className="tiems">50</Text>次</View>
             <Image className="honest" mode="aspectFit" src={honest}></Image>
           </View>
-          <Image className="nuts" src={nuts}></Image>
-          <Image className="caravan" src={caravan}></Image>
-          <Image className={`light ${ray?'moveray':''}`} src={light}></Image>
-          <Image className="pyramid" src={pyramid}></Image>
+          <Image className="nuts" mode="aspectFit" src={nuts}></Image>
+          <View className="caravan" style={{'background-image':'url('+caravan+')'}}>
+            <Image className="pyramid" mode="widthFix" src={pyramid}></Image>
+          </View>
+          <Image className={`light ${ray?'moveray':''}`} mode="aspectFit" src={light}></Image>
           <View className="lppztip">
               <View>打开“良品铺子+”小程序</View>
               <View>查看[年度回忆]</View>

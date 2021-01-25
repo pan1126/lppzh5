@@ -31,12 +31,11 @@
     .annals-mood{
         display: block;
         width: 522px;
-        height: 48px;
         margin-top: 93px;
     }
     .annals-moon{
         position: absolute;
-        right: 0;
+        left: 0;
         top: 0;
         width: auto;
         z-index: 0;
@@ -49,6 +48,24 @@
 }
 
 .pagefixed{
+    @keyframes pages-moon{ 
+        0%{ 
+            opacity: 0;
+            top: -100%;
+            left: -100%;
+        }
+         100%{
+            opacity: 1;
+            left: 0;
+            top: 0;
+        }
+    }
+    .annals-moon{
+        -webkit-animation: pages-moon 1s ease-out both;
+        -moz-animation: pages-moon 1s ease-out both;
+        -o-animation: pages-moon 1s ease-out both;
+        animation: pages-moon 1s ease-out both;
+    }
     .moon{
         opacity: 1;
         -webkit-transition: all 1s ease-in-out 400ms;
@@ -59,6 +76,24 @@
 }
 
 .page-opc{
+    @keyframes opc-moon{ 
+        0%{ 
+            opacity: 1;
+            left: 0;
+            top: 0;
+        }
+         100%{
+            opacity: 0;
+            top: 100%;
+            left: 100%;
+        }
+    }
+    .annals-moon{
+        -webkit-animation: opc-moon 1s ease-out both;
+        -moz-animation: opc-moon 1s ease-out both;
+        -o-animation: opc-moon 1s ease-out both;
+        animation: opc-moon 1s ease-out both;
+    }
     .moon{
         opacity: 0;
         -webkit-transition: all 300ms ease-out;

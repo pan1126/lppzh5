@@ -14,18 +14,18 @@ import {get as getGlobalData} from '../../service/config'
  * @param {*} params {id 微信是openId 支付宝则是userId, pageSize 页大小 , pageNumber 页码}
  */
 function recordDetail(params=null) {
-    Taro.showLoading({
-        title:'加载中...',
-        mask:true
-    })
+    // Taro.showLoading({
+    //     title:'加载中...',
+    //     mask:true
+    // })
     return new Promise(function (resolve, reject) {
         let options_data = params
-        let url = `${getGlobalData('domain_park')}/orderRecord/get`
+        let url = `${getGlobalData('domain_year')}/services/sign/intro`
         api.get(url, options_data,'none').then(function (res) {
-           Taro.hideLoading() 
+           //Taro.hideLoading() 
            resolve(res)
         },(e)=>{
-            Taro.hideLoading()
+            //Taro.hideLoading()
             reject(e)
             Taro.showToast({
                 title:'请求失败，请稍后重试',
@@ -38,9 +38,5 @@ function recordDetail(params=null) {
 
 
 export default {
-    scanCheckCarPay,
-    checkparkOrder,
-    payDoPay,
-    recordList,
     recordDetail
 }

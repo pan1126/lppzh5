@@ -1,9 +1,175 @@
 import Taro from '@tarojs/taro'
+import React, { Component } from 'react'
 import {
   get as getGlobalData,
   set as setGlobalData
 } from '../service/config'
 import api from '../service/api'
+
+var isLppzApp;
+var ua = navigator.userAgent.toLowerCase();
+var uaApp = ua ? ua.match(/BeStore/i) : '';
+var uaAndroid = /android/i.test(ua);
+var uaIos = /iphone|ipad|ipod/i.test(ua);
+
+if (uaApp == 'bestore') {
+    isLppzApp = true;
+} else {
+    isLppzApp = false;
+}
+
+
+const uuid = getUUID ()
+//获取 UUID
+export function getUUID () {
+  let localuserinfo = localStorage.getItem('userinfo')
+  if((!!localuserinfo) && (!!JSON.parse(localuserinfo).uuid)){
+      return JSON.parse(localuserinfo).uuid
+  }
+  var c, d, a = [],
+      b = "0123456789abcdef";
+  for (c = 0; 36 > c; c++) a[c] = b.substr(Math.floor(16 * Math.random()), 1);
+  return a[14] = "4",
+      a[19] = b.substr(8 | 3 & a[19], 1),
+      a[8] = a[13] = a[18] = a[23] = "-",
+      d = a.join("")
+
+  return d;
+}
+
+export function setStorage(key, value) {
+  var value = JSON.stringify(value)
+  window.localStorage.setItem(key, value);
+}
+
+export function getStorage(key) {
+  return JSON.parse(window.localStorage.getItem(key));
+}
+
+export function removeStorage(key) {
+  window.localStorage.removeItem(key);
+}
+
+//APP关闭页面
+export function closePageLppzRequest(){
+  if (isLppzApp && uaAndroid) {
+      javascript:obj.closePageLppzRequest('');
+  } else if (isLppzApp && uaIos) {
+      window.webkit.messageHandlers.closePageLppzRequest.postMessage('');
+  }
+};
+
+export function systemType(){
+  return new Promise((resolve,reject)=>{
+      let verNew = '',system = null;
+      if (uaAndroid)  system = 'ard';
+      if (uaIos)  system = 'ios';
+      resolve({system})
+  })
+}
+//APP登录刷新
+export function loginLppzRefresh(url){
+  var thisData = {};
+  thisData.targetUrl = url;
+  if (isLppzApp && uaAndroid) {
+      javascript:obj.loginLppzRefresh(url);
+  } else if (isLppzApp && uaIos) {
+      window.webkit.messageHandlers.loginLppzRefresh.postMessage(thisData);
+  }
+};
+
+//APP分享
+export function sharingPageLppzRequest(title,image,url,content,type){
+  var thisData = {};
+  thisData.title = title;
+  thisData.image = image;
+  thisData.url = url;
+  thisData.content = content;
+  thisData.type = type;
+  if (isLppzApp && uaAndroid) {
+      javascript:obj.sharingPageLppzRequest(title,image,url,content,type);
+  } else if (isLppzApp && uaIos) {
+      window.webkit.messageHandlers.sharingPageLppzRequest.postMessage(thisData);
+  }
+};
+
+//新版分享微信方法：
+export function sharingPageLppzRequestNew(params){
+  var paramData = params || {};
+  if (isLppzApp && uaAndroid) {
+      javascript:obj.sharingPageLppzRequestNew(JSON.stringify(paramData));
+  } else if (isLppzApp && uaIos) {
+      window.webkit.messageHandlers.sharingPageLppzRequestNew.postMessage(paramData);
+  }
+}
+
+// get URL参数
+export function parseQueryString(url) {
+  var reg_url = /^[^\?]+\?([\w\W]+)$/,
+  reg_para = /([^&=]+)=([\w\W]*?)(&|$|#)/g,
+  arr_url = reg_url.exec(decodeURIComponent(decodeURIComponent(url))),
+  ret = {};
+  if (arr_url && arr_url[1]) {
+      var str_para = arr_url[1], result;
+      while ((result = reg_para.exec(str_para)) != null) {
+          ret[result[1]] = result[2];
+      }
+  }
+  return ret;
+}
+
+export function versionDiff(curV) {
+  return new Promise((resolve, reject)=>{
+      let reqV = '2.10.1'   //判断版本号大于2.10.1
+     var arr1 = curV.toString().split('.');
+     var arr2 = reqV.toString().split('.');//将两个版本号拆成数字	    
+     var minL = Math.min(arr1.length, arr2.length);	    
+     var pos = 0; //当前比较位	    
+     var diff = 0; //当前为位比较是否相等	    
+      var flag = false;	//逐个比较如果当前位相等则继续比较下一位	    
+    while(pos < minL) {		        
+        diff = parseInt(arr1[pos]) - parseInt(arr2[pos]);		        
+        if(diff == 0) {			            
+            pos++;
+            flag = true;            
+            continue;		        
+        } else if(diff > 0) {			            
+            flag = true;
+            break;
+        } else {			            
+            flag = false;			            
+            break;		        
+        }	    
+    }
+  //   console.log(flag,'flag')
+      resolve({show:flag})
+  })
+}
+
+//获取APP参数
+export function getAppParams(){
+  let appParams = {};
+  let ua = window.navigator.userAgent.toLocaleLowerCase(),
+      uaApp = ua ? ua.match(/BeStore/i) : '';
+  if(cookies.get('params')){
+    try{
+      appParams = JSON.parse(decodeURIComponent(cookies.get('params'))).reqParam;
+    }catch(e){
+      toast(e.message,{type:'error'});
+    }
+  }else{
+    appParams = parseQueryString(window.location.href) || {};
+  }
+  console.log(appParams,cookies.get('params'))
+  return new Promise((resolve, reject)=>{
+    // if(uaApp && appParams.uuid) { //个别ios不能识别uaApp，所以用下面的方式
+    if(appParams.userAgent.indexOf('BeStore')>-1 && appParams.uuid) {
+      resolve(appParams);
+    } else {
+      reject();
+    }
+  })
+}
 
 /*获取当前页参数 返回对象*/
 export const getCurrentPageUrlWithArgs = () => {
@@ -441,4 +607,57 @@ export function getWindowHeight(showTabBar = true) {
   }
 
   return `${windowHeight}px`
+}
+
+/*
+*封装的Modal组件，用法跟antd一样
+*<Modal visible={this.state.visible} onOk={this.xx.bind(this)} onCancle={this.xx2.bind(this)} title="提示3" okText="ok" cancleText="cancle ></Modal>
+*/
+export class Modal extends React.Component{
+  render(){
+      let style = {}
+      if(this.props.width){
+          style = {'width':this.props.width+'px','marginLeft':'-'+parseInt(this.props.width)/2+'px'}
+      }
+      return (
+          <div>
+              <div className={"layer-mask "+(this.props.visible ? 'mask-in':'')}></div>
+              <div className={"modal "+(this.props.styleKind ? this.props.styleKind:'')+' '+(this.props.visible ? 'modal-in':'')} style={style}>
+                  <div className="modal-dialog">
+                      <div className="modal-header">
+                          <a className="modal-close" href="#!" onClick={this.handleCancle.bind(this)}>×</a>
+                          {this.props.icon ? <i className={"icon icon-"+this.props.icon}></i> : <h4 className="modal-title">{this.props.title}</h4>}
+                          
+                      </div>
+                      <div className="modal-content">
+                          {this.props.children}
+                      </div>
+                      <div className="modal-footer">
+                        {this.props.cancleText == 'false' ? '': <button type="button" className="lp-btn btn-cancel" onClick={this.handleCancle.bind(this)}>{this.props.cancleText ? this.props.cancleText : '取消'}</button>}
+                        {this.props.okText == 'false' ? '': <button type="button" className="lp-btn btn-comfirm" disabled={this.props.comfirmState} onClick={this.handleOk.bind(this)}>{this.props.okText ? this.props.okText : '确定'}</button>}
+                      </div>
+                  </div>
+              </div>
+          </div>
+      )
+  }
+  handleOk(){
+      if(this.props.onOk) {
+          this.props.onOk()
+      }
+  }
+  handleCancle(){
+      if(this.props.onCancel){
+          this.props.onCancel()
+      }
+  }
+
+}
+Modal.defaultProps = {
+  visible:false,
+  style:{},
+  title:'提示',
+  icon:'',
+  cancleText:'',
+  okText:''
 }

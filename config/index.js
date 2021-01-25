@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2021-01-22 08:53:30
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-01-22 10:23:18
+ * @LastEditTime: 2021-01-25 19:00:52
  */
 const config = {
   projectName: 'lppzh5',
@@ -17,7 +17,19 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
-  plugins: [],
+  babel: {
+    sourceMap: true,
+    presets: [
+      ['env', {
+        modules: false
+      }]
+    ],
+    plugins: [
+      'transform-decorators-legacy',
+      'transform-class-properties',
+      'transform-object-rest-spread'
+    ]
+  },
   defineConstants: {
   },
   copy: {
