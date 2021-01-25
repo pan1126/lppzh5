@@ -32,10 +32,14 @@
         }
     }
     .rightprize{
-        width: 677px;
+        width: 100%;
+        height: inherit;
         position: absolute;
-        right: -100px;
+        right: -10%;
         top: 0;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: right;
     }
     .leftprize{
         width: 214px;

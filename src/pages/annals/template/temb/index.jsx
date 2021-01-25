@@ -57,9 +57,7 @@ class Temb extends Component {
              </Block>
              <Image className="light" mode="aspectFit" src={light}></Image>
              <Image className="leftprize" mode="aspectFit" src={leftprize}></Image>
-             <View className="rightprize">
-              <Image className="img" mode="aspectFit" src={rightprize}></Image>
-             </View>
+             <View className="rightprize" style={{'background-image':'url('+rightprize+')'}}></View>
              <Image className={`start ${moveStart?'movestart':''}`} src={start}></Image>
              <Image className="startDraw" src={startDraw}></Image>
              <View className="lppztip">

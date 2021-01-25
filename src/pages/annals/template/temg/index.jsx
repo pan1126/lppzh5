@@ -33,7 +33,9 @@ class Temg extends Component {
             <Image className="annals-hot" mode="aspectFit" src={annals_hot}></Image>
           </View>
           <Image className="annals-ball" mode="aspectFit" src={annals_ball}></Image>
-          <Image className="annals-bill" mode="aspectFit" src={annals_bill}></Image>
+          <View className="annals-bill" style={{'background-image':'url('+annals_bill+')'}}>
+            {/* <Image className="annals-bill" mode="aspectFit" src={annals_bill}></Image> */}
+          </View>
           <View className="lppztip">
               <View>打开“良品铺子+”小程序</View>
               <View>查看[年度回忆]</View>

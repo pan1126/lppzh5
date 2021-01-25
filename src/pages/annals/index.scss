@@ -62,9 +62,12 @@ html::-webkit-scrollbar {
        min-height: 100vh;
        position: fixed;
        background-color: #ffecd6;
-       top: 0;
-       left: 0;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%,-50%);
        opacity: 1;
+       max-width: 750px;
+       min-width: 320px;
        overflow: hidden;
        -webkit-transition: all 1s ease-in-out;
        -moz-transition: all 1s ease-in-out;
@@ -99,7 +102,7 @@ html::-webkit-scrollbar {
 .lppztip{
     position: fixed;
     left: 30px;
-    bottom: 100px;
+    bottom: 7%;
     font-size: 26px;
     color: #222;
 }

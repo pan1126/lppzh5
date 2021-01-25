@@ -24,9 +24,8 @@
     }
     .annals-hot{
         display: block;
-        width: 590px;
-        height: 482px;
-        height: 0;
+        width: 78.6%;
+        overflow:hidden;
         margin-top: 60px;
     }
     .annals-ball{
@@ -35,16 +34,18 @@
         left: 0;
         bottom: 0;
         width: 88%;
-        height: 327px;
+        height: initial;
         z-index: -1;
     }
     .annals-bill{
-        width: 100vw;
-        height: initial;
+        width: 100%;
+        height: calc(100% - 200px);
         position: absolute;
         z-index: -2;
-        top: -200px;
+        top: 0;
         left: 0;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
     }
 }
 
@@ -73,6 +74,14 @@
             bottom: 0;
         }
     }
+    @keyframes page-height{ 
+        0%{ 
+           max-height: 0;
+        }
+         100%{
+            max-height: 40%;
+        }
+    }
     .annals-ball{
         -webkit-animation: pages-ball 1s ease-out both;
         -moz-animation: pages-ball 1s ease-out both;
@@ -93,11 +102,10 @@
         transition: all 0.6s ease-in-out 1.8s;
     }
     .annals-hot{
-        height: 40%;
-        -webkit-transition: all 0.6s ease-in-out 600ms;
-        -moz-transition: all 0.6s ease-in-out 600ms;
-        -o-transition: all 0.6s ease-in-out 600ms;
-        transition: all 0.6s ease-in-out 600ms;
+        -webkit-animation: page-height 0.6s 600ms ease-out both;
+        -moz-animation: page-height 0.6s 600ms ease-out both;
+        -o-animation: page-height 0.6s 600ms ease-out both;
+        animation: page-height 0.6s 600ms ease-out both;
     }
 }
 

@@ -53,7 +53,6 @@ export default class Index extends Component {
         fullPageNum: false, //是否在滑动
         detail:{},
         isLoading:true,
-        visible:false,
         errTips:'',
         comfirmStates:'确认'
     }
@@ -103,7 +102,41 @@ export default class Index extends Component {
                 })
             break;
         }
+
+
+        this.registerAudioContext();
+
   }
+  // 注册音频
+
+    registerAudioContext () {
+            const innerAudioContext = Taro.createInnerAudioContext('myVideo',this)
+            innerAudioContext.autoplay = true
+            innerAudioContext.src = '../../image/lppzRadio.mp3'
+            innerAudioContext.onPlay(() => {
+            console.log('开始播放')
+
+            })
+            innerAudioContext.onStop(() => {
+            console.log('i am onStop')
+            innerAudioContext.stop()
+            //播放停止，销毁该实例
+            innerAudioContext.destroy()
+
+            })
+            innerAudioContext.onEnded(() => {
+            console.log('i am onEnded')
+            //播放结束，销毁该实例
+            innerAudioContext.destroy()
+            console.log('已执行destory()')
+            })
+            innerAudioContext.onError((res) => {
+            console.log(res.errMsg)
+            console.log(res.errCode)
+            innerAudioContext.destroy()
+            })
+    
+      }
 
   //获取信息
   getUserInfo(uData, callback) {
@@ -224,13 +257,8 @@ export default class Index extends Component {
           }, 1000)
       }
   }
-  modalConfirm(){
-      this.setState({
-        visible:false
-      })
-  }
   render () {
-    let { bannerList,fullPage,detail,isLoading,visible,comfirmStates,errTips } = this.state
+    let { bannerList,fullPage,detail,isLoading } = this.state
     let Pagelist = [
         <Tema key={0} ref="child" index={0} detail={detail} fullpage={fullPage} MakePage={this.pageInfo.bind(this,1)} bannerlist={bannerList}></Tema>,
         <Temb key={1} index={1} detail={detail} fullpage={fullPage} bannerlist={bannerList}></Temb>,
@@ -259,15 +287,6 @@ export default class Index extends Component {
                 }
             </View>
             <Loading isloading={isLoading}></Loading>
-            <Modal
-                title="提示"
-                visible={visible}
-                comfirmState={comfirmStates}
-                onOk={this.modalConfirm.bind(this)}
-                cancleText="false"
-                >
-                <p className="text-center">{errTips}</p>
-            </Modal>
         </Block>
     );
   }

@@ -29,9 +29,7 @@ class Temf extends Component {
             <View className="consume">在这里您一共购买了<Text className="tiems">32</Text>笔订单</View>
             <Image className="annals-clerk" mode="aspectFit" src={annals_clerk}></Image>
           </View>
-          <View className="annals-buildings">
-            <Image className="img" mode="widthFix" src={annals_buildings}></Image>
-          </View>
+          <View className="annals-buildings" style={{'background-image':'url('+annals_buildings+')'}}></View>
           <View className="lppztip">
               <View>打开“良品铺子+”小程序</View>
               <View>查看[年度回忆]</View>
